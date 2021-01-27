@@ -74,7 +74,7 @@ Use the higher-order function getWinners to do the following:
 function getWinners(data,finalscb) {
     const winners = [];
     finalscb(data).forEach(function(item){
-        if (finalscb(data)['Home Team Goals'] > finalscb(data)['Away Team Goals']){
+        if (item['Home Team Goals'] > item['Away Team Goals']){
             return winners.push(item['Home Team Name']);
         }
         else{
@@ -98,13 +98,13 @@ hint: the strings returned need to exactly match the string in step 4.
  */
 
 function getWinnersByYear(data,yearsCB,winnersCB) {
-    const allwinners = [];
-    for (let i = 0; i< yearsCB.legnth; i++){
-        return allwinners.push('In ${yearsCB[i]}, ${winnersCB[i]} won the world cup!');
-    }
-    return allwinners;
+    const getYears = yearsCB(data,getFinals);
+    const getWinners = winnersCB(data,getFinals);
+    return getYears.map(function(item,index) {
+        return 'In '+item+', '+getWinners[index] +' won the world cup!';
+    });
 }
-console.log(getWinnersByYear(fifaData,getYears,getWinners))
+console.log(getWinnersByYear(fifaData,getYears,getWinners));
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 6: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
